@@ -28,8 +28,7 @@ const generateCombinations = (prefix, remainingDigits) => {
 };
 
 const phoneNumberToVanity = (phoneNumber) => {
-    const digits = "+92".replace(/[^\d]/g, '').replace(/[01]/g, ''); // Remove non-numeric characters
-    console.log("Digits", digits)
+    const digits = phoneNumber.replace(/[^\d]/g, '').replace(/[01]/g, '');
     return generateCombinations('', digits);
 };
 
