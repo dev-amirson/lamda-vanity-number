@@ -1,19 +1,20 @@
 // LambdaFunction.js
 const AWS = require('aws-sdk');
 const phoneNumberToVanity = require('./phoneNumberToVanity');
+require('dotenv').config();
+
 
 const ddbClient = new AWS.DynamoDB.DocumentClient({
-    region: 'us-east-1',
-    endpoint: 'http://localhost:4566',
-    accessKeyId: 'test', // these credentials are predefined by LocalStack
-    secretAccessKey: 'test'
+    region: `${process.env.REGION}`,
+    endpoint:  `${process.env.DYNAMODB_ENDPOINT}`,
+    accessKeyId:  `${process.env.ACCESS_KEY_ID}`, // these credentials are predefined by LocalStack
+    secretAccessKey: `${process.env.SECRET_ACCESS_KEY}`
   });
+
 
 exports.handler = async (event) => {
     const phoneNumber = event.Details.ContactData.CustomerEndpoint.Address;
-    console.log("Phone Number:", phoneNumber);
     const vanityNumbers = phoneNumberToVanity(phoneNumber);
-    console.log("vanityNumbers", vanityNumbers);
     const bestVanityNumbers = vanityNumbers.slice(0, 5); // Assume these are the best
 
     const params = {

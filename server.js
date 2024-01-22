@@ -4,11 +4,12 @@ const AWS = require('aws-sdk');
 const app = express();
 const port = 3000;
 
+
 const ddbClient = new AWS.DynamoDB.DocumentClient({
-    region: 'us-east-1',
-    endpoint: 'http://localhost:4566',
-    accessKeyId: 'test', // these credentials are predefined by LocalStack
-    secretAccessKey: 'test'
+    region: `${process.env.REGION}`,
+    endpoint:  `${process.env.DYNAMODB_ENDPOINT}`,
+    accessKeyId:  `${process.env.ACCESS_KEY_ID}`, // these credentials are predefined by LocalStack
+    secretAccessKey: `${process.env.SECRET_ACCESS_KEY}`
   });
 
 app.get('/last-five-vanity', async (req, res) => {
